@@ -1,0 +1,9 @@
+C:\Users\s199027\source\repos\Assessment1\Assessment1\bin\Debug\Assessment1.exe.config
+C:\Users\s199027\source\repos\Assessment1\Assessment1\bin\Debug\Assessment1.exe
+C:\Users\s199027\source\repos\Assessment1\Assessment1\bin\Debug\Assessment1.pdb
+C:\Users\s199027\source\repos\Assessment1\Assessment1\obj\Debug\Assessment1.csprojAssemblyReference.cache
+C:\Users\s199027\source\repos\Assessment1\Assessment1\obj\Debug\Assessment1.csproj.CoreCompileInputs.cache
+C:\Users\s199027\source\repos\Assessment1\Assessment1\obj\Debug\Assessment1.exe
+C:\Users\s199027\source\repos\Assessment1\Assessment1\obj\Debug\Assessment1.pdb
+C:\Users\s199027\source\repos\Assessment1\Assessment1\bin\Debug\GameEvents.txt
+C:\Users\s199027\source\repos\Assessment1\Assessment1\bin\Debug\Statistics.txt
