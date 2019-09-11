@@ -118,6 +118,7 @@ namespace Assessment1
                         slime.sandEaten++;
                     }
                 }
+                // If the player doesnt choose a valid option, then they will fail and take damage as a punishment.
                 else
                 {
                     Console.WriteLine("You fall flat on your face in front of everyone! Press Enter to continue");
@@ -130,8 +131,6 @@ namespace Assessment1
                     Console.WriteLine("The excessive amounts of sand has caused the slime to turn into a type of concrete! \r\n YOU HAVE DEFEATED IT!");
                     slime.healthTotal = 0;
                 }
-                // If the player doesnt choose a valid option, then they will fail and take damage as a punishment.
-                
                 // If the slime is alive then have them attack the player with a random attack.
                 if (slime.healthTotal > 0)
                 {
@@ -175,7 +174,7 @@ namespace Assessment1
                 int playerAttackChoice = 0;
                 int enemyAttackChoice = rd.Next(1, 3);
                 // Asking the player what action they want to take, and then executing that action.
-                Console.WriteLine($"The enemy has {enemies[enemyNum].healthTotal} health points remaining!\r\nYou have {player.healthTotal} health points remaining!\r\nYou see an opening in his defences!\r\nPress 1 to Attack || Press 2 to Pummel || Press 3 to Throw Sand!");
+                Console.WriteLine($"{enemyNames[enemyNum + 1]} has {enemies[enemyNum].healthTotal} health points remaining!\r\nYou have {player.healthTotal} health points remaining!\r\nYou see an opening in his defences!\r\nPress 1 to Attack || Press 2 to Pummel || Press 3 to Throw Sand!");
                 Int32.TryParse(Console.ReadLine(), out playerAttackChoice);
                 if ((playerAttackChoice == 1) || (playerAttackChoice == 2) || (playerAttackChoice == 3))
                 {
@@ -185,7 +184,7 @@ namespace Assessment1
                         int hitDetection = rd.Next(1, player.accuracyTotal);
                         if (hitDetection != 4)
                         {
-                            Console.WriteLine($"You Hit them for {player.damageTotal} DMG");
+                            Console.WriteLine($"You hit {enemyNames[enemyNum + 1]} for {player.damageTotal} DMG");
                             enemies[enemyNum].healthTotal -= player.damageTotal;
                         }
                         else
@@ -196,7 +195,7 @@ namespace Assessment1
                     // A pummel attack that avoids the armor of the opponent.
                     if (playerAttackChoice == 2)
                     {
-                        Console.WriteLine("You hit them for 20 DMG");
+                        Console.WriteLine($"You hit {enemyNames[enemyNum + 1]} for 20 DMG");
                         enemies[enemyNum].healthTotal -= 20;
                     }
                     // A throwing sand attack that reduces their accuracy with a special property.
@@ -230,24 +229,24 @@ namespace Assessment1
                         int hitDetection = rd.Next(1, enemies[enemyNum].accuracyTotal);
                         if (hitDetection != 4)
                         {
-                            Console.WriteLine($"They hit you for {enemies[enemyNum].damageTotal} DMG!");
+                            Console.WriteLine($"{enemyNames[enemyNum + 1]} hits you for {enemies[enemyNum].damageTotal} DMG!");
                             player.healthTotal -= enemies[enemyNum].damageTotal;
                         }
                         else
                         {
-                            Console.WriteLine("They missed their attack");
+                            Console.WriteLine($"{enemyNames[enemyNum + 1]} missed their attack");
                         }
                     }
                     // The enemy pummels past your defence.
                     if (enemyAttackChoice == 2)
                     {
                         player.healthTotal -= 20;
-                        Console.WriteLine("They pummel you for 20 damage");
+                        Console.WriteLine($"{enemyNames[enemyNum + 1]} pummels you for 20 damage");
                     }
                     // The enemy reduces your accuracy.
                     if (enemyAttackChoice == 3)
                     {
-                        Console.WriteLine("They throw sand in your face");
+                        Console.WriteLine($"{enemyNames[enemyNum + 1]} throws sand in your face");
                     }
                 }
             }
@@ -278,7 +277,6 @@ namespace Assessment1
                 {
                     armors[i] = new Chain();
                 }
-                Console.WriteLine(armors[i]);
             }
             for (int i = 0; i < weapons.Length; i++)
             {
@@ -362,7 +360,7 @@ namespace Assessment1
                     if ((player.healthTotal <= 0) && (gameOver == false))
                     {
                         Console.Clear();
-                        writer.WriteLine($"You have died a tragic death at the hands of another gladiator. To be fair, you did take out {enemyNames[enemiesDefeated - 1]}.");
+                        writer.WriteLine($"You have died a tragic death at the hands of {enemyNames[enemiesDefeated]}. To be fair, you did take out {enemyNames[enemiesDefeated - 1]}.");
                         writer.WriteLine($"GAME OVER");
                         writer.Close();
                         GameOver();
@@ -394,7 +392,6 @@ namespace Assessment1
                             // Assign the players damage and their weapon accuracy along with choice.
                             player.damageTotal = weapons[weaponChoice].damage + (weapons[weaponChoice].fleshDamageBonus / slime.armorTotal) + playerDamageModifier;
                             player.accuracyTotal = weapons[weaponChoice].accuracy;
-                            Console.WriteLine(player.damageTotal);
                             Console.WriteLine("You have chosen: " + weaponNames[weaponChoice] + "\r\nPress ENTER to continue");
                             Console.ReadLine();
                             Console.Clear();
