@@ -47,6 +47,7 @@ namespace Assessment1
             {
                 string readLine = reader.ReadLine();
                 Console.WriteLine(readLine);
+                
             }
             Console.WriteLine($"Press 1 for the {weaponNames[1]} | Press 2 for the {weaponNames[2]} | Press 3 for the {weaponNames[3]}");
             enemyNameNum++;
@@ -121,13 +122,16 @@ namespace Assessment1
                 // If the player doesnt choose a valid option, then they will fail and take damage as a punishment.
                 else
                 {
+                    Console.ForegroundColor = ConsoleColor.DarkGreen;
                     Console.WriteLine("You fall flat on your face in front of everyone! Press Enter to continue");
+                    Console.ForegroundColor = ConsoleColor.Black;
                     player.healthTotal -= 5;
                     Console.ReadLine();
                 }
                 // An instant kill for the player, if the enemy has had sand thrown at him too many times.
                 if (slime.sandEaten == 10)
                 {
+                    Console.ForegroundColor = ConsoleColor.DarkYellow;
                     Console.WriteLine("The excessive amounts of sand has caused the slime to turn into a type of concrete! \r\n YOU HAVE DEFEATED IT!");
                     slime.healthTotal = 0;
                 }
@@ -174,7 +178,7 @@ namespace Assessment1
                 int playerAttackChoice = 0;
                 int enemyAttackChoice = rd.Next(1, 3);
                 // Asking the player what action they want to take, and then executing that action.
-                Console.WriteLine($"{enemyNames[enemyNum + 1]} has {enemies[enemyNum].healthTotal} health points remaining!\r\nYou have {player.healthTotal} health points remaining!\r\nYou see an opening in his defences!\r\nPress 1 to Attack || Press 2 to Pummel || Press 3 to Throw Sand!");
+                Console.WriteLine($"|  {enemyNames[enemyNum + 1]} has {enemies[enemyNum].healthTotal} health points remaining!\r\n|  You have {player.healthTotal} health points remaining!\r\n|  You see an opening in his defences!\r\n|  Press 1 to Attack || Press 2 to Pummel || Press 3 to Throw Sand!");
                 Int32.TryParse(Console.ReadLine(), out playerAttackChoice);
                 if ((playerAttackChoice == 1) || (playerAttackChoice == 2) || (playerAttackChoice == 3))
                 {
@@ -184,37 +188,45 @@ namespace Assessment1
                         int hitDetection = rd.Next(1, player.accuracyTotal);
                         if (hitDetection != 4)
                         {
-                            Console.WriteLine($"You hit {enemyNames[enemyNum + 1]} for {player.damageTotal} DMG");
+                            Console.ForegroundColor = ConsoleColor.DarkGreen;
+                            Console.WriteLine($"\n|  You hit {enemyNames[enemyNum + 1]} for {player.damageTotal} DMG");
+                            Console.ForegroundColor = ConsoleColor.Black;
                             enemies[enemyNum].healthTotal -= player.damageTotal;
                         }
                         else
                         {
-                            Console.WriteLine("You missed your attack");
+                            Console.ForegroundColor = ConsoleColor.DarkGreen;
+                            Console.WriteLine("\n|  You missed your attack");
+                            Console.ForegroundColor = ConsoleColor.Black;
                         }
                     }
                     // A pummel attack that avoids the armor of the opponent.
                     if (playerAttackChoice == 2)
                     {
-                        Console.WriteLine($"You hit {enemyNames[enemyNum + 1]} for 20 DMG");
+                        Console.ForegroundColor = ConsoleColor.DarkGreen;
+                        Console.WriteLine($"\n|  You pummel {enemyNames[enemyNum + 1]} for 20 DMG");
+                        Console.ForegroundColor = ConsoleColor.Black;
                         enemies[enemyNum].healthTotal -= 20;
                     }
                     // A throwing sand attack that reduces their accuracy with a special property.
                     if (playerAttackChoice == 3)
                     {
-                        Console.WriteLine("Throwing sand was super effective");
+                        Console.ForegroundColor = ConsoleColor.DarkYellow;
+                        Console.WriteLine("\n|  Throwing sand was super effective");
+                        Console.ForegroundColor = ConsoleColor.Black;
                         enemies[enemyNum].sandEaten++;
                     }
                 }
                 else
                 {
-                    Console.WriteLine("You fall flat on your face in front of everyone! Press Enter to continue");
+                    Console.WriteLine("\n|  You fall flat on your face in front of everyone! Press Enter to continue");
                     player.healthTotal -= 5;
                     Console.ReadLine();
                 }
                 // An instant kill for the player, if the enemy has had sand thrown at him too many times.
                 if (enemies[enemyNum].sandEaten == 5)
                 {
-                    Console.WriteLine("You shove the sand so far down his throat, that they suffocate!");
+                    Console.WriteLine("\n|  You shove the sand so far down his throat, that they suffocate!");
                     enemies[enemyNum].healthTotal = 0;
                 }
                 // If the player doesnt choose a valid option, then they will fail and take damage as a punishment.
@@ -229,30 +241,34 @@ namespace Assessment1
                         int hitDetection = rd.Next(1, enemies[enemyNum].accuracyTotal);
                         if (hitDetection != 4)
                         {
-                            Console.WriteLine($"{enemyNames[enemyNum + 1]} hits you for {enemies[enemyNum].damageTotal} DMG!");
+                            Console.ForegroundColor = ConsoleColor.Red;
+                            Console.WriteLine($"|  {enemyNames[enemyNum + 1]} hits you for {enemies[enemyNum].damageTotal} DMG!\n");
+                            Console.ForegroundColor = ConsoleColor.Black;
                             player.healthTotal -= enemies[enemyNum].damageTotal;
                         }
                         else
                         {
-                            Console.WriteLine($"{enemyNames[enemyNum + 1]} missed their attack");
+                            Console.WriteLine($"|  {enemyNames[enemyNum + 1]} missed their attack\n");
                         }
                     }
                     // The enemy pummels past your defence.
                     if (enemyAttackChoice == 2)
                     {
                         player.healthTotal -= 20;
-                        Console.WriteLine($"{enemyNames[enemyNum + 1]} pummels you for 20 damage");
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.WriteLine($"|  {enemyNames[enemyNum + 1]} pummels you for 20 damage\n");
+                        Console.ForegroundColor = ConsoleColor.Black;
                     }
                     // The enemy reduces your accuracy.
                     if (enemyAttackChoice == 3)
                     {
-                        Console.WriteLine($"{enemyNames[enemyNum + 1]} throws sand in your face");
+                        Console.WriteLine($"|  {enemyNames[enemyNum + 1]} throws sand in your face\n");
                     }
                 }
             }
             if (player.healthTotal > 0)
             {
-                Console.WriteLine("THE BATTLE HAS BEEN DECIDED. \r\nYOU ARE THE WINNER");
+                Console.WriteLine("|  THE BATTLE HAS BEEN DECIDED. \r\n|  YOU ARE THE WINNER");
             }
             Console.ReadLine();
         }
@@ -314,6 +330,8 @@ namespace Assessment1
             arrayAssigning();
             while (gameOver == false)
             {
+                Console.BackgroundColor = ConsoleColor.Yellow;
+                Console.ForegroundColor = ConsoleColor.Black;
                 int weaponChoice = 0;
                 int enemiesDefeated = 0;
                 int playerDamageModifier = 0;             
@@ -370,6 +388,7 @@ namespace Assessment1
                     else
                     // The final fight against the boss.
                     {
+                        Console.BackgroundColor = ConsoleColor.Green;
                         Console.Clear();
                         SetUpText();
                         player.healthTotal = 100;
@@ -401,7 +420,7 @@ namespace Assessment1
                     // Check to see if the player is dead, if so then exit the game and have boss text.
                     if ((player.healthTotal <= 0) && (gameOver == false))
                     {
-                        Console.Clear();
+                        Console.Clear(); 
                         writer.WriteLine($"You have died at the hands of the colossal slime. You were the best fighter the world had seen.");
                         writer.WriteLine($"GAME OVER");
                         writer.WriteLine($"PRESS ENTER TO EXIT");
@@ -429,7 +448,9 @@ namespace Assessment1
                             writer.WriteLine($"You have defeated the slime and in the mass of the slime, you notice a stop watch.");
                             writer.WriteLine($"GAME OVER");
                             writer.WriteLine($"PRESS ENTER TO START NG+");
+                            writer.Close();
                             GameOver();
+                            writer = new StreamWriter("Statistics.txt");
                             weapons[0].damage = 1000;
                             enemiesDefeated = 0;
                             for (int i = 0; i < 4; i++)
