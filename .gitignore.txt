@@ -1,0 +1,8 @@
+.vs/
+.bin/
+.obj/
+Generated\ Files/
+.suo
+.user
+.userosscache
+.sln.docstates

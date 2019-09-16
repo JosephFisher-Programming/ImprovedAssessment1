@@ -1,2 +1,2 @@
-You have died a tragic death at the hands of 1. To be fair, you did take out no one.
-GAME OVER
+|  You have died a tragic death at the hands of 1. To be fair, you did take out 1.
+|  GAME OVER

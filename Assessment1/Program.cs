@@ -28,7 +28,7 @@ namespace Assessment1
             string[] weaponTypes = new string[4] {"","piercing","slashing","blunt"};
             if (enemyNameNum < 5)
             {
-                Console.WriteLine("What is the name of your opponent?");
+                Console.WriteLine("|  What is the name of your opponent?");
                 enemyNames[enemyNameNum] = Console.ReadLine();
                 Console.Clear();
             }
@@ -37,7 +37,7 @@ namespace Assessment1
             {
                 for (int i = 1; i < 4; i++)
                 {
-                    Console.WriteLine($"What would you like to name your {weaponTypes[i]} weapon?");
+                    Console.WriteLine($"|  What would you like to name your {weaponTypes[i]} weapon?");
                     weaponNames[i] = Console.ReadLine();
                     Console.Clear();
                 }
@@ -49,7 +49,7 @@ namespace Assessment1
                 Console.WriteLine(readLine);
                 
             }
-            Console.WriteLine($"Press 1 for the {weaponNames[1]} | Press 2 for the {weaponNames[2]} | Press 3 for the {weaponNames[3]}");
+            Console.WriteLine($"|  Press 1 for the {weaponNames[1]} | Press 2 for the {weaponNames[2]} | Press 3 for the {weaponNames[3]}");
             enemyNameNum++;
         }
         // The losing game over.
@@ -61,17 +61,7 @@ namespace Assessment1
                 string line = statisticReader.ReadLine();
                 Console.WriteLine(line);
             }
-            Console.WriteLine("Thank you for playing!");
-            Console.ReadLine();
-            statisticReader.Close();
-        }
-        // The winning game over.
-        static void GameOver(int pHealth)
-        {
-            StreamReader statisticReader = new StreamReader("Statistics.txt");
-            string line = statisticReader.ReadLine();
-            Console.WriteLine($"You defeated the monstrosity and managed to defeat a total of {line} opponents and still have {pHealth} HP left!");
-            Console.WriteLine("Thank you for playing!");
+            Console.WriteLine("|  Thank you for playing!");
             Console.ReadLine();
             statisticReader.Close();
         }
@@ -84,7 +74,7 @@ namespace Assessment1
                 int playerAttackChoice = 0;
                 int slimeAttackChoice = rd.Next(1, 3);
                 // Asking the player what action they want to take, and then executing that action.
-                Console.WriteLine($"The slime has {slime.healthTotal} health points remaining!\r\nYou have {player.healthTotal} health points remaining!\r\nYou see an opening in his defences!\r\nPress 1 to Attack || Press 2 to Pummel || Press 3 to Throw Sand!");
+                Console.WriteLine($"|  The slime has {slime.healthTotal} health points remaining!\r\n|  You have {player.healthTotal} health points remaining!\r\n|  You see an opening in his defences!\r\n|  Press 1 to Attack || Press 2 to Pummel || Press 3 to Throw Sand!");
                 Int32.TryParse(Console.ReadLine(), out playerAttackChoice);
                 if ((playerAttackChoice == 1) || (playerAttackChoice == 2) || (playerAttackChoice == 3))
                 {
@@ -94,37 +84,35 @@ namespace Assessment1
                         int hitDetection = rd.Next(1, player.accuracyTotal);
                         if (hitDetection != 5)
                         {
-                            Console.WriteLine($"You hit the monstrosity for {player.damageTotal * (slime.sandEaten + 1)} DMG");
+                            Console.WriteLine($"\r\n|  You hit the monstrosity for {player.damageTotal * (slime.sandEaten + 1)} DMG");
                             slime.healthTotal -= player.damageTotal * (slime.sandEaten + 1);
                             if (slime.sandEaten == 1)
                             {
-                                Console.WriteLine("You start to deal much more damage than you did against the gladiators");
+                                Console.WriteLine("|  You start to deal much more damage than you did against the gladiators");
                             }
                         }
                         else
                         {
-                            Console.WriteLine("You missed your attack");
+                            Console.WriteLine("\r\n|  You missed your attack");
                         }
                     }
                     // A pummel attack that avoids the armor of the opponent.
                     if (playerAttackChoice == 2)
                     {
-                        Console.WriteLine("You hit the behemoth for 20 DMG");
+                        Console.WriteLine("\r\n|  You hit the behemoth for 20 DMG");
                         slime.healthTotal -= 20;
                     }
                     // A throwing sand attack that reduces their accuracy with a special property.
                     if (playerAttackChoice == 3)
                     {
-                        Console.WriteLine("Throwing sand has thickened it self!");
+                        Console.WriteLine("\r\n|  Throwing sand has thickened the slime!");
                         slime.sandEaten++;
                     }
                 }
                 // If the player doesnt choose a valid option, then they will fail and take damage as a punishment.
                 else
                 {
-                    Console.ForegroundColor = ConsoleColor.DarkGreen;
-                    Console.WriteLine("You fall flat on your face in front of everyone! Press Enter to continue");
-                    Console.ForegroundColor = ConsoleColor.Black;
+                    Console.WriteLine("\r\n|  You fall flat on your face in front of everyone! Press Enter to continue");
                     player.healthTotal -= 5;
                     Console.ReadLine();
                 }
@@ -132,7 +120,7 @@ namespace Assessment1
                 if (slime.sandEaten == 10)
                 {
                     Console.ForegroundColor = ConsoleColor.DarkYellow;
-                    Console.WriteLine("The excessive amounts of sand has caused the slime to turn into a type of concrete! \r\n YOU HAVE DEFEATED IT!");
+                    Console.WriteLine("|  The excessive amounts of sand has caused the slime to turn into a type of concrete! \r\n YOU HAVE DEFEATED IT!");
                     slime.healthTotal = 0;
                 }
                 // If the slime is alive then have them attack the player with a random attack.
@@ -144,24 +132,30 @@ namespace Assessment1
                         int hitDetection = rd.Next(1, slime.accuracyTotal);
                         if (hitDetection != 2)
                         {
-                            Console.WriteLine($"It starts to devour you, dealing {slime.damageTotal} DMG!");
+                            Console.ForegroundColor = ConsoleColor.Red;
+                            Console.WriteLine($"|  It starts to devour you, dealing {slime.damageTotal} DMG!\r\n");
                             player.healthTotal -= slime.damageTotal;
+                            Console.ForegroundColor = ConsoleColor.Black;
                         }
                         else
                         {
-                            Console.WriteLine("They missed their attack");
+                            Console.WriteLine("|  They missed their attack\r\n");
                         }
                     }
                     // The slime deals damage past your defence.
                     if (slimeAttackChoice == 2)
                     {
                         player.healthTotal -= 20;
-                        Console.WriteLine("They try to suffocate you, dealing 20 DMG!");
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.WriteLine("|  They try to suffocate you, dealing 20 DMG!\r\n");
+                        Console.ForegroundColor = ConsoleColor.Black;
                     }
                     // The slime sprays you reducing your accuracy.
                     if (slimeAttackChoice == 3)
                     {
-                        Console.WriteLine("It shoots a volley of slime, impairing your eyesight!");
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.WriteLine("|  It shoots a volley of slime, impairing your eyesight!\r\n");
+                        Console.ForegroundColor = ConsoleColor.Black;
                     }
                 }
             }
@@ -248,7 +242,9 @@ namespace Assessment1
                         }
                         else
                         {
+                            Console.ForegroundColor = ConsoleColor.Red;
                             Console.WriteLine($"|  {enemyNames[enemyNum + 1]} missed their attack\n");
+                            Console.ForegroundColor = ConsoleColor.Black;
                         }
                     }
                     // The enemy pummels past your defence.
@@ -348,7 +344,7 @@ namespace Assessment1
                         // If the player does not choose a valid option, then punish them by not having a weapon.
                         if (weaponChoice != 1 && weaponChoice != 2 && weaponChoice != 3)
                         {
-                            Console.WriteLine("Being a complete utter fool, you drop all of the weapons given to you and must fight with your hands now!");
+                            Console.WriteLine("|  Being a complete utter fool, you drop all of the weapons given to you and must fight with your hands now!");
                         }
                         try
                         {
@@ -366,7 +362,7 @@ namespace Assessment1
                             player.accuracyTotal = weapons[weaponChoice].accuracy;
                             enemies[enemiesDefeated].accuracyTotal = weapons[enemiesDefeated].accuracy;
                             playerDamageModifier += 2;
-                            Console.WriteLine("You have chosen: " + weaponNames[weaponChoice] + "\r\nPress ENTER to continue");
+                            Console.WriteLine("|  You have chosen: " + weaponNames[weaponChoice] + "\r\n|  Press ENTER to continue");
                             Console.ReadLine();
                             Console.Clear();
                         }
@@ -378,8 +374,8 @@ namespace Assessment1
                     if ((player.healthTotal <= 0) && (gameOver == false))
                     {
                         Console.Clear();
-                        writer.WriteLine($"You have died a tragic death at the hands of {enemyNames[enemiesDefeated]}. To be fair, you did take out {enemyNames[enemiesDefeated - 1]}.");
-                        writer.WriteLine($"GAME OVER");
+                        writer.WriteLine($"|  You have died a tragic death at the hands of {enemyNames[enemiesDefeated]}. To be fair, you did take out {enemyNames[enemiesDefeated - 1]}.");
+                        writer.WriteLine($"|  GAME OVER");
                         writer.Close();
                         GameOver();
                         gameOver = true;
@@ -396,7 +392,7 @@ namespace Assessment1
                         // If the player does not choose a valid option, then punish them by not having a weapon.
                         if ((weaponChoice) != 1 && (weaponChoice != 2) && (weaponChoice != 3))
                         {
-                            Console.WriteLine("Being a complete utter fool, you drop all of the weapons given to you and must fight with your hands now!");
+                            Console.WriteLine("|  Being a complete utter fool, you drop all of the weapons given to you and must fight with your hands now!");
                         }
                         try
                         {
@@ -411,7 +407,7 @@ namespace Assessment1
                             // Assign the players damage and their weapon accuracy along with choice.
                             player.damageTotal = weapons[weaponChoice].damage + (weapons[weaponChoice].fleshDamageBonus / slime.armorTotal) + playerDamageModifier;
                             player.accuracyTotal = weapons[weaponChoice].accuracy;
-                            Console.WriteLine("You have chosen: " + weaponNames[weaponChoice] + "\r\nPress ENTER to continue");
+                            Console.WriteLine("|  You have chosen: " + weaponNames[weaponChoice] + "\r\n|  Press ENTER to continue");
                             Console.ReadLine();
                             Console.Clear();
                         }
@@ -421,9 +417,9 @@ namespace Assessment1
                     if ((player.healthTotal <= 0) && (gameOver == false))
                     {
                         Console.Clear(); 
-                        writer.WriteLine($"You have died at the hands of the colossal slime. You were the best fighter the world had seen.");
-                        writer.WriteLine($"GAME OVER");
-                        writer.WriteLine($"PRESS ENTER TO EXIT");
+                        writer.WriteLine($"|  You have died at the hands of the colossal slime. You were the best fighter the world had seen.");
+                        writer.WriteLine($"|  GAME OVER");
+                        writer.WriteLine($"|  PRESS ENTER TO EXIT");
                         writer.Close();
                         GameOver();
                         gameOver = true;
@@ -434,9 +430,9 @@ namespace Assessment1
                         if (newGamePlus == true)
                         {
                             Console.Clear();
-                            writer.WriteLine($"You have finally received vengance for all of your dead comrades and saved them as well.  You are now the most unstoppable being on the planet now");
-                            writer.WriteLine($"GAME OVER");
-                            writer.WriteLine($"PRESS ENTER TO EXIT");
+                            writer.WriteLine($"|  You have finally received vengance for all of your dead comrades and saved them as well.  You are now the most unstoppable being on the planet now");
+                            writer.WriteLine($"|  GAME OVER");
+                            writer.WriteLine($"|  PRESS ENTER TO EXIT");
                             writer.Close();
                             GameOver();
                             gameOver = true;
@@ -445,9 +441,9 @@ namespace Assessment1
                         // If its their first time beating the boss, then reset it with a few changes.
                         {
                             Console.Clear();
-                            writer.WriteLine($"You have defeated the slime and in the mass of the slime, you notice a stop watch.");
-                            writer.WriteLine($"GAME OVER");
-                            writer.WriteLine($"PRESS ENTER TO START NG+");
+                            writer.WriteLine($"|  You have defeated the slime and in the mass of the slime, you notice a stop watch.");
+                            writer.WriteLine($"|  GAME OVER");
+                            writer.WriteLine($"|  PRESS ENTER TO START NG+");
                             writer.Close();
                             GameOver();
                             writer = new StreamWriter("Statistics.txt");
